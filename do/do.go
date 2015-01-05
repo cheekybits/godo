@@ -25,7 +25,7 @@ func (l *Location) String() string {
 	return fmt.Sprintf("%s:%d: %s", l.File, l.Line, l.Preview)
 }
 
-func (f *Finder) Walk(path string) <-chan *Location {
+func (f *Finder) Walk(path, pattern string) <-chan *Location {
 	tokens := make([]string, len(f.Tokens))
 	for i, t := range f.Tokens {
 		tokens[i] = strings.ToLower(t)
@@ -34,6 +34,9 @@ func (f *Finder) Walk(path string) <-chan *Location {
 	go func() {
 		f.Err = f.Walker(path, func(path string, info os.FileInfo, err error) error {
 			if err != nil {
+				return err
+			}
+			if match, err := filepath.Match(pattern, filepath.Base(path)); !match {
 				return err
 			}
 			file, err := os.Open(path)

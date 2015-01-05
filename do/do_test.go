@@ -13,7 +13,7 @@ func TestDo(t *testing.T) {
 	d := do.New()
 	d.Tokens = []string{"TODO"}
 	var locations []*do.Location
-	for r := range d.Walk("./test") {
+	for r := range d.Walk("./test", "*.go") {
 		locations = append(locations, r)
 	}
 

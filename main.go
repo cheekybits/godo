@@ -19,7 +19,8 @@ import (
 
 func main() {
 	var (
-		tokens = flag.String("tokens", "TODO,FIXME", "list of comma separated tokens")
+		tokens  = flag.String("tokens", "TODO,FIXME", "list of comma separated tokens")
+		pattern = flag.String("pattern", "*.*", "Pattern of files to process")
 	)
 	flag.Parse()
 	args := flag.Args()
@@ -28,7 +29,7 @@ func main() {
 	}
 	d := do.New()
 	d.Tokens = strings.Split(*tokens, ",")
-	for item := range d.Walk(args[0]) {
+	for item := range d.Walk(args[0], *pattern) {
 		fmt.Println(item.String())
 	}
 	if d.Err != nil {
