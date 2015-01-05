@@ -28,7 +28,7 @@ func main() {
 	}
 	d := do.New()
 	d.Tokens = strings.Split(*tokens, ",")
-	for item := range d.Walk(args[1]) {
+	for item := range d.Walk(args[0]) {
 		fmt.Println(item.String())
 	}
 	if d.Err != nil {
