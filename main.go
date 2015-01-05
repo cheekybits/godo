@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/cheekybits/godo/do"
+	"github.com/stretchr/powerwalk"
 )
 
 /*
@@ -29,6 +30,7 @@ func main() {
 	}
 	d := do.New()
 	d.Tokens = strings.Split(*tokens, ",")
+	d.Walker = powerwalk.Walk
 	for item := range d.Walk(args[0], *pattern) {
 		fmt.Println(item.String())
 	}
